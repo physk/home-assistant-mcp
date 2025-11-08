@@ -128,6 +128,13 @@ export class HAClient {
     return response.data;
   }
 
+  async gitDiff(commit1?: string, commit2?: string): Promise<any> {
+    const response = await this.client.get(`/api/backup/diff`, {
+      params: { commit1, commit2 },
+    });
+    return response.data;
+  }
+
   // System API
   async checkConfig(): Promise<any> {
     const response = await this.client.post(`/api/system/check-config`);

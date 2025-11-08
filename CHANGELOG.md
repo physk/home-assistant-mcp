@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2025-11-08
+
+### Added
+- **ha_git_diff tool** - Show differences between commits or current uncommitted changes
+  - View changes before committing
+  - Compare between any two commits
+  - See what was modified in each change
+
+### Changed
+- Updated tools documentation
+
 ## [1.0.1] - 2025-11-08
 
 ### Changed

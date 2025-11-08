@@ -209,6 +209,23 @@ export const tools: Tool[] = [
       required: ['commit_hash'],
     },
   },
+  {
+    name: 'ha_git_diff',
+    description: 'Show differences between Git commits or view current uncommitted changes',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        commit1: {
+          type: 'string',
+          description: 'First commit hash (optional). If omitted, shows uncommitted changes',
+        },
+        commit2: {
+          type: 'string',
+          description: 'Second commit hash (optional). If omitted with commit1, shows changes since commit1 to HEAD',
+        },
+      },
+    },
+  },
 
   // System Operations
   {

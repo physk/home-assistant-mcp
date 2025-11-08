@@ -154,6 +154,12 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
         };
 
+      case 'ha_git_diff':
+        result = await haClient.gitDiff(args.commit1 as string, args.commit2 as string);
+        return {
+          content: [{ type: 'text', text: result.diff || 'No changes' }],
+        };
+
       // System Operations
       case 'ha_check_config':
         result = await haClient.checkConfig();
