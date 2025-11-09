@@ -181,6 +181,11 @@ export class HAClient {
     return response.data;
   }
 
+  async hacsUninstall(): Promise<any> {
+    const response = await this.client.post(`/api/hacs/uninstall`);
+    return response.data;
+  }
+
   async hacsStatus(): Promise<any> {
     const response = await this.client.get(`/api/hacs/status`);
     return response.data;

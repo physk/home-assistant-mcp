@@ -277,6 +277,14 @@ export const tools: Tool[] = [
     },
   },
   {
+    name: 'ha_uninstall_hacs',
+    description: '[WRITE] Uninstall HACS (Home Assistant Community Store). Removes HACS directory, storage files, and restarts Home Assistant. DESTRUCTIVE - requires approval!',
+    inputSchema: {
+      type: 'object',
+      properties: {},
+    },
+  },
+  {
     name: 'ha_hacs_status',
     description: '[READ-ONLY] Check if HACS is installed and get version info. ALWAYS call this FIRST when user mentions HACS or asks about custom integrations. If not installed, offer to install via ha_install_hacs. Safe operation - only reads data.',
     inputSchema: {

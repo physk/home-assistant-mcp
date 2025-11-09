@@ -198,6 +198,12 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
         };
 
+      case 'ha_uninstall_hacs':
+        result = await haClient.hacsUninstall();
+        return {
+          content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
+        };
+
       case 'ha_hacs_status':
         result = await haClient.hacsStatus();
         return {
