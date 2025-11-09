@@ -50,7 +50,7 @@ Built on [Model Context Protocol](https://modelcontextprotocol.io/) and powered 
 Before installing, you need:
 
 1. **Home Assistant** running (any version)
-2. **[HA Cursor Agent](https://github.com/Coolver/home-assistant-cursor-agent)** v1.0.15+ installed as add-on
+2. **[HA Cursor Agent](https://github.com/Coolver/home-assistant-cursor-agent)** v1.0.16+ installed as add-on
 3. **API Key** from HA Cursor Agent (auto-generated on first start)
 4. **Cursor AI** editor installed
 
@@ -65,22 +65,27 @@ Install the agent in your Home Assistant:
 1. Go to **Settings** → **Add-ons** → **Add-on Store**
 2. Click **⋮** → **Repositories**
 3. Add: `https://github.com/Coolver/home-assistant-cursor-agent`
-4. Install **HA Cursor Agent** (v1.0.15+)
+4. Install **HA Cursor Agent** (v1.0.16+)
 5. **Start** the agent
 
-### Step 2: Get API Key
+### Step 2: Get Configuration
 
-**Easy way - Use Ingress Panel:**
-1. Look in Home Assistant **Sidebar** → **🔑 API Key** panel appears
-2. Click on **API Key** panel
-3. Click **"Copy to Clipboard"** button
-4. Done! ✅
+**Use Ingress Panel:**
+1. Look in Home Assistant **Sidebar** → **🔑 API Key** panel
+2. Click **"Copy Configuration to Clipboard"** button
+3. Done! You have complete JSON config ✅
 
-**Alternative ways:**
-- View in add-on **Logs** (shown on first start)
-- Read file: `/config/.ha_cursor_agent_key`
+### Step 3: Add to Cursor
 
-### Step 3: Configure Cursor
+**Option A: Via Cursor Settings (Recommended)**
+1. Open Cursor → **Settings**
+2. Go to **Tools & MCP**
+3. Click **New MCP Server**
+4. Click **Add a Custom MCP Server**
+5. Paste the configuration you copied
+6. Save
+
+**Option B: Manual file edit**
 
 Add to your `~/.cursor/mcp.json`:
 
