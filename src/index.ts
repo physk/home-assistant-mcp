@@ -194,39 +194,53 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case 'ha_install_hacs':
         result = await haClient.hacsInstall();
-        break;
+        return {
+          content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
+        };
 
       case 'ha_hacs_status':
         result = await haClient.hacsStatus();
-        break;
+        return {
+          content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
+        };
 
       case 'ha_hacs_list_repositories':
         result = await haClient.hacsListRepositories();
-        break;
+        return {
+          content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
+        };
 
       case 'ha_hacs_install_repository':
         result = await haClient.hacsInstallRepository(
           args.repository as string,
           args.category as string
         );
-        break;
+        return {
+          content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
+        };
 
       case 'ha_hacs_search':
         result = await haClient.hacsSearch(
           args.query as string,
           args.category as string
         );
-        break;
+        return {
+          content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
+        };
 
       case 'ha_hacs_update_all':
         result = await haClient.hacsUpdateAll();
-        break;
+        return {
+          content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
+        };
 
       case 'ha_hacs_repository_details':
         result = await haClient.hacsGetRepositoryDetails(
           args.repository_id as string
         );
-        break;
+        return {
+          content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
+        };
 
       default:
         throw new Error(`Unknown tool: ${name}`);
