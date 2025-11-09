@@ -84,52 +84,51 @@ Install the agent in your Home Assistant:
 4. Install **HA Cursor Agent** (v2.0.0+)
 5. **Start** the agent
 
-### Step 2: Get Configuration
+### Step 2: Setup MCP in Cursor
 
-**Use Web UI:**
+**Get configuration from Home Assistant:**
 1. Open your **Home Assistant** (usually http://homeassistant.local:8123)
 2. Go to **Settings** → **Add-ons** → **HA Cursor Agent**
 3. Click **"Open Web UI"** button
 4. Click **"Copy Configuration to Clipboard"**
-5. Done! You have complete JSON config ✅
+5. Configuration copied! ✅
 
-### Step 3: Add to Cursor
+**Add to Cursor AI:**
+1. Open **Cursor** editor
+2. Go to **Settings** (Cmd/Ctrl + ,)
+3. Click **Tools & MCP** in the sidebar
+4. Click **New MCP Server**
+5. Click **Add a Custom MCP Server**
+6. **Paste** the configuration you copied
+7. Click **Save**
+8. **Restart Cursor** completely (Cmd/Ctrl + Q and reopen)
 
-**Option A: Via Cursor Settings (Recommended)**
-1. Open Cursor → **Settings**
-2. Go to **Tools & MCP**
-3. Click **New MCP Server**
-4. Click **Add a Custom MCP Server**
-5. Paste the configuration you copied
-6. Save
+Done! Cursor AI is now connected to your Home Assistant 🎉
 
-**Option B: Manual file edit**
+### Step 3: Test Connection
 
-Add to your `~/.cursor/mcp.json`:
+**Verify everything works:**
 
-```json
-{
-  "mcpServers": {
-    "home-assistant": {
-      "command": "npx",
-      "args": ["-y", "@coolver/mcp-home-assistant@latest"],
-      "env": {
-        "HA_AGENT_URL": "http://homeassistant.local:8099",
-        "HA_AGENT_KEY": "YOUR_API_KEY_HERE"
-      }
-    }
-  }
-}
+Open Cursor and send this message to AI:
+```
+Connect to my Home Assistant and show me:
+1. List of all my climate entities
+2. Current agent logs
+3. Last 5 changes from Git history
+
+This will verify the MCP connection is working.
 ```
 
-**Why `@latest`?**
-- ✅ Always get the newest features and bug fixes
-- ✅ Automatic updates when you restart Cursor
-- ✅ No manual version management needed
+If AI successfully returns your entities and Git history, you're all set! ✅
 
-### Step 5: Restart Cursor
+**Troubleshooting:** If connection fails:
+- Check that HA Cursor Agent is running
+- Ensure Cursor was fully restarted
+- Verify configuration was pasted correctly
 
-Restart Cursor AI and start chatting!
+### Step 4: Start Building!
+
+Just describe what you want in natural language - AI will handle the rest!
 
 ---
 
