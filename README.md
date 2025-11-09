@@ -111,28 +111,6 @@ Add to your `~/.cursor/mcp.json`:
 - ✅ Automatic updates when you restart Cursor
 - ✅ No manual version management needed
 
-**Alternative (fixed version):**
-```json
-"args": ["-y", "@coolver/mcp-home-assistant@1.0.5"]
-```
-Use this if you want predictable, controlled updates.
-
-Or if installed globally:
-
-```json
-{
-  "mcpServers": {
-    "home-assistant": {
-      "command": "mcp-home-assistant",
-      "env": {
-        "HA_AGENT_URL": "http://homeassistant.local:8099",
-        "HA_TOKEN": "YOUR_LONG_LIVED_ACCESS_TOKEN_HERE"
-      }
-    }
-  }
-}
-```
-
 ### Step 5: Restart Cursor
 
 Restart Cursor AI and start chatting!
@@ -224,7 +202,7 @@ turn on TV and soundbar. Create scenes and automations.
 | Variable | Description | Required | Default |
 |----------|-------------|----------|---------|
 | `HA_AGENT_URL` | URL of HA Cursor Agent | Yes | `http://homeassistant.local:8099` |
-| `HA_TOKEN` | Long-Lived Access Token | Yes | - |
+| `HA_AGENT_KEY` | Agent API Key | Yes | - |
 
 ### Custom Agent URL
 
@@ -238,7 +216,7 @@ If your agent runs on a different URL:
       "args": ["-y", "@coolver/mcp-home-assistant@latest"],
       "env": {
         "HA_AGENT_URL": "http://192.168.1.100:8099",
-        "HA_TOKEN": "your_token_here"
+        "HA_AGENT_KEY": "your_api_key_here"
       }
     }
   }
