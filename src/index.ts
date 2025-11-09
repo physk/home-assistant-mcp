@@ -11,19 +11,19 @@ import { tools } from './tools.js';
 
 // Get configuration from environment
 const HA_AGENT_URL = process.env.HA_AGENT_URL || 'http://homeassistant.local:8099';
-// Support both new and old env var names for backward compatibility
-const HA_TOKEN = process.env.HA_AGENT_KEY || process.env.HA_TOKEN;
+const HA_AGENT_KEY = process.env.HA_AGENT_KEY;
 
-if (!HA_TOKEN) {
-  console.error('Error: HA_AGENT_KEY (or HA_TOKEN) environment variable is required');
-  console.error('Please set it in ~/.cursor/mcp.json');
+if (!HA_AGENT_KEY) {
+  console.error('Error: HA_AGENT_KEY environment variable is required');
+  console.error('Please set it in Cursor: Settings → Tools & MCP → Add Custom MCP Server');
+  console.error('Or manually in ~/.cursor/mcp.json');
   process.exit(1);
 }
 
 // Initialize HA client
 const haClient = new HAClient({
   baseURL: HA_AGENT_URL,
-  token: HA_TOKEN,
+  token: HA_AGENT_KEY,
 });
 
 // Create MCP server
@@ -219,7 +219,7 @@ async function main() {
     console.error('\nPlease ensure:');
     console.error('1. HA Cursor Agent add-on is running');
     console.error('2. HA_AGENT_URL is correct');
-    console.error('3. HA_TOKEN is valid');
+    console.error('3. HA_AGENT_KEY is valid');
     process.exit(1);
   }
 

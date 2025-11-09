@@ -2,71 +2,135 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [2.0.0] - 2025-11-08
+
+### 🚨 BREAKING CHANGES
+
+- **Removed `HA_TOKEN` support** - only `HA_AGENT_KEY` is accepted now
+  - Old configurations with `HA_TOKEN` will **STOP WORKING**
+  - Must update to `HA_AGENT_KEY` in your Cursor MCP configuration
+  - Cleaner API without legacy naming
+
+### Migration Required
+
+**If you're using `HA_TOKEN`:**
+
+```json
+// OLD (will not work in v2.0.0+):
+{
+  "env": {
+    "HA_TOKEN": "your-key"
+  }
+}
+
+// NEW (required):
+{
+  "env": {
+    "HA_AGENT_KEY": "your-key"
+  }
+}
+```
+
+**How to migrate:**
+1. Update HA Cursor Agent add-on to v2.0.0
+2. Get new configuration from Web UI (Settings → Add-ons → HA Cursor Agent → Open Web UI)
+3. Copy the ready-to-use JSON config
+4. Update Cursor: Settings → Tools & MCP → Edit your server or add new one
+5. Restart Cursor
+
+### Why This Change?
+
+- ✅ Accurate naming: It's an Agent Key, not a HA Token
+- ✅ No confusion with Home Assistant authentication tokens
+- ✅ Simpler codebase
+- ✅ Clear API semantics
+
+### What Stays the Same
+
+- ✅ Same MCP tools and functionality
+- ✅ Same HA Cursor Agent API endpoints
+- ✅ Only variable name changed
+
+---
+
+## [1.0.14] - 2025-11-08
+
+### Documentation
+- Fixed Ingress Panel access path in documentation
+
+## [1.0.13] - 2025-11-08
+
+### Documentation
+- Updated setup instructions to use Cursor Settings UI
+
+## [1.0.12] - 2025-11-08
+
+### Documentation
+- Updated agent version requirements
+
+## [1.0.11] - 2025-11-08
+
+### Documentation
+- Updated to reference agent v1.0.11+
+
+## [1.0.10] - 2025-11-08
+
+### Documentation
+- Updated to reference agent v1.0.10+
+
+## [1.0.9] - 2025-11-08
+
+### Added
+- Support for `HA_AGENT_KEY` environment variable (with backward compatibility to `HA_TOKEN`)
+
+## [1.0.8] - 2025-11-08
+
+### Documentation
+- Updated for API Key authentication instead of Long-Lived Tokens
+
+## [1.0.7] - 2025-11-08
+
+### Documentation
+- Updated for HA Cursor Agent v1.0.9+ with API Key system
+
+## [1.0.6] - 2025-11-08
+
+### Fixed
+- Fixed `ha_reload_config` to properly pass component parameter
+
+### Added
+- `ha_git_diff` tool for viewing differences between commits
+
+## [1.0.5] - 2025-11-08
+
+### Changed
+- Updated tool descriptions with [READ-ONLY] and [WRITE] labels
 
 ## [1.0.4] - 2025-11-08
 
 ### Added
-- **[READ-ONLY] and [WRITE] labels** for all tools to help Cursor determine approval requirements
-  - READ-ONLY tools: read, list, get, check, diff, logs - safe operations
-  - WRITE tools: write, create, delete, rollback, reload - require approval
-
-### Changed
-- Updated all tool descriptions with safety labels
-- Improved Cursor's ability to auto-approve safe operations
+- Better log formatting for `ha_get_logs` tool
 
 ## [1.0.3] - 2025-11-08
 
 ### Added
-- **ha_git_diff tool** - Show differences between commits or current uncommitted changes
-  - View changes before committing
-  - Compare between any two commits
-  - See what was modified in each change
+- Git diff functionality
 
-### Changed
-- Updated tools documentation
+## [1.0.2] - 2025-11-08
+
+### Documentation
+- Updated README with improved instructions
 
 ## [1.0.1] - 2025-11-08
 
-### Changed
-- **Improved README and descriptions** - Focus on AI-driven system building, not just querying
-- Updated examples to showcase complex automation creation
-- Added real-world use case: Climate Control V3 installation
-- Emphasized AI's ability to analyze and create tailored solutions
-- Updated package description to reflect core value proposition
-
-### Documentation
-- Added `SETUP_AUTOMATION.md` - Step-by-step GitHub Actions setup
-- Added `TOKEN_SETUP_VISUAL.md` - Visual guide for token configuration
-- Better examples showing end-to-end system creation
+### Fixed
+- Initial release fixes
 
 ## [1.0.0] - 2025-11-08
 
 ### Added
-- Initial release of MCP Home Assistant
-- Full integration with HA Cursor Agent
-- File management (read, write, list, delete)
-- Entity management (list, get state)
-- Helpers management (list, create, delete)
-- Automations management (list, create, delete)
-- Scripts management (list, create, delete)
-- System operations (check config, reload)
-- Git versioning (commit, history, rollback)
-- Agent logs access with filtering
-- Comprehensive documentation
-- TypeScript support with full type definitions
-
-### Tools Implemented
-- 18 MCP tools for complete Home Assistant control
-- Natural language integration with Cursor AI
-- Real-time agent log monitoring
-
-### Documentation
-- Complete README with quick start guide
-- Usage examples for common scenarios
-- Troubleshooting section
-- Security best practices
-
-[1.0.0]: https://github.com/Coolver/mcp-home-assistant/releases/tag/v1.0.0
-
+- Initial release
+- MCP server for Home Assistant via HA Cursor Agent
+- Full API coverage (files, entities, helpers, automations, scripts, system, backup, logs)
+- TypeScript implementation
+- NPM package publication
