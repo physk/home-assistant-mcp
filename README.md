@@ -50,7 +50,7 @@ Built on [Model Context Protocol](https://modelcontextprotocol.io/) and powered 
 Before installing, you need:
 
 1. **Home Assistant** running (any version)
-2. **[HA Cursor Agent](https://github.com/Coolver/home-assistant-cursor-agent)** v1.0.16+ installed as add-on
+2. **[HA Cursor Agent](https://github.com/Coolver/home-assistant-cursor-agent)** v1.0.17+ installed as add-on
 3. **API Key** from HA Cursor Agent (auto-generated on first start)
 4. **Cursor AI** editor installed
 
@@ -65,15 +65,16 @@ Install the agent in your Home Assistant:
 1. Go to **Settings** → **Add-ons** → **Add-on Store**
 2. Click **⋮** → **Repositories**
 3. Add: `https://github.com/Coolver/home-assistant-cursor-agent`
-4. Install **HA Cursor Agent** (v1.0.16+)
+4. Install **HA Cursor Agent** (v1.0.17+)
 5. **Start** the agent
 
 ### Step 2: Get Configuration
 
-**Use Ingress Panel:**
-1. Look in Home Assistant **Sidebar** → **🔑 API Key** panel
-2. Click **"Copy Configuration to Clipboard"** button
-3. Done! You have complete JSON config ✅
+**Use Web UI:**
+1. Go to **Settings** → **Add-ons** → **HA Cursor Agent**
+2. Click **"Open Web UI"** button
+3. Click **"Copy Configuration to Clipboard"**
+4. Done! You have complete JSON config ✅
 
 ### Step 3: Add to Cursor
 
