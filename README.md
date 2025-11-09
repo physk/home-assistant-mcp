@@ -71,10 +71,11 @@ Install the agent in your Home Assistant:
 ### Step 2: Get Configuration
 
 **Use Web UI:**
-1. Go to **Settings** → **Add-ons** → **HA Cursor Agent**
-2. Click **"Open Web UI"** button
-3. Click **"Copy Configuration to Clipboard"**
-4. Done! You have complete JSON config ✅
+1. Open your **Home Assistant** (usually http://homeassistant.local:8123)
+2. Go to **Settings** → **Add-ons** → **HA Cursor Agent**
+3. Click **"Open Web UI"** button
+4. Click **"Copy Configuration to Clipboard"**
+5. Done! You have complete JSON config ✅
 
 ### Step 3: Add to Cursor
 
