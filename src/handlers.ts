@@ -262,9 +262,9 @@ export const toolHandlers: Record<string, ToolHandler> = {
   'ha_apply_dashboard': async (client, args) => {
     const result = await client.applyDashboard(
       args.dashboard_config,
+      args.create_backup,
       args.filename,
-      args.register_dashboard,
-      args.create_backup
+      args.register_dashboard
     );
     return jsonResponse(result);
   },
