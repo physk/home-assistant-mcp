@@ -51,7 +51,7 @@ export class HAClient {
     });
   }
 
-  async listFiles(directory: string = '/'): Promise<string[]> {
+  async listFiles(directory: string = '/'): Promise<any[]> {
     const response = await this.client.get(`/api/files/list`, {
       params: { directory },
     });
