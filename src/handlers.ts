@@ -327,5 +327,41 @@ export const toolHandlers: Record<string, ToolHandler> = {
     );
     return jsonResponse(result);
   },
+
+  // Themes
+  'ha_list_themes': async (client, args) => {
+    const result = await client.listThemes();
+    return jsonResponse(result);
+  },
+
+  'ha_get_theme': async (client, args) => {
+    const result = await client.getTheme(args.theme_name);
+    return jsonResponse(result);
+  },
+
+  'ha_create_theme': async (client, args) => {
+    const result = await client.createTheme(args.theme_name, args.theme_config);
+    return jsonResponse(result);
+  },
+
+  'ha_update_theme': async (client, args) => {
+    const result = await client.updateTheme(args.theme_name, args.theme_config);
+    return jsonResponse(result);
+  },
+
+  'ha_delete_theme': async (client, args) => {
+    const result = await client.deleteTheme(args.theme_name);
+    return jsonResponse(result);
+  },
+
+  'ha_reload_themes': async (client, args) => {
+    const result = await client.reloadThemes();
+    return jsonResponse(result);
+  },
+
+  'ha_check_theme_config': async (client, args) => {
+    const result = await client.checkThemeConfig();
+    return jsonResponse(result);
+  },
 };
 

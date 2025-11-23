@@ -365,5 +365,51 @@ export class HAClient {
     });
     return response.data;
   }
+
+  // Themes API
+  async listThemes(): Promise<any[]> {
+    const response = await this.client.get(`/api/themes/list`);
+    return response.data.themes || [];
+  }
+
+  async getTheme(themeName: string): Promise<any> {
+    const response = await this.client.get(`/api/themes/get`, {
+      params: { theme_name: themeName },
+    });
+    return response.data;
+  }
+
+  async createTheme(themeName: string, themeConfig: any): Promise<any> {
+    const response = await this.client.post(`/api/themes/create`, {
+      theme_name: themeName,
+      theme_config: themeConfig,
+    });
+    return response.data;
+  }
+
+  async updateTheme(themeName: string, themeConfig: any): Promise<any> {
+    const response = await this.client.put(`/api/themes/update`, {
+      theme_name: themeName,
+      theme_config: themeConfig,
+    });
+    return response.data;
+  }
+
+  async deleteTheme(themeName: string): Promise<any> {
+    const response = await this.client.delete(`/api/themes/delete`, {
+      params: { theme_name: themeName },
+    });
+    return response.data;
+  }
+
+  async reloadThemes(): Promise<any> {
+    const response = await this.client.post(`/api/themes/reload`);
+    return response.data;
+  }
+
+  async checkThemeConfig(): Promise<any> {
+    const response = await this.client.get(`/api/themes/check_config`);
+    return response.data;
+  }
 }
 

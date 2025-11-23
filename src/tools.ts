@@ -770,6 +770,103 @@ export const tools: Tool[] = [
       required: ['domain', 'service'],
     },
   },
+
+  // ==================== Themes ====================
+
+  {
+    name: 'ha_list_themes',
+    description: '[READ-ONLY] List all available themes in Home Assistant. Safe operation - only reads data.',
+    inputSchema: {
+      type: 'object',
+      properties: {},
+    },
+  },
+
+  {
+    name: 'ha_get_theme',
+    description: '[READ-ONLY] Get theme content and configuration. Safe operation - only reads data.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        theme_name: {
+          type: 'string',
+          description: 'Theme name (without .yaml extension, e.g., "nice_dark")',
+        },
+      },
+      required: ['theme_name'],
+    },
+  },
+
+  {
+    name: 'ha_create_theme',
+    description: '[WRITE] Create a new theme in Home Assistant. MODIFIES configuration - requires approval. After creation, call ha_reload_themes or restart HA.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        theme_name: {
+          type: 'string',
+          description: 'Theme name (without .yaml extension, e.g., "nice_dark")',
+        },
+        theme_config: {
+          type: 'object',
+          description: 'Theme configuration object with CSS variables (e.g., {"primary-color": "#ffb74d", "accent-color": "#ffb74d", ...})',
+        },
+      },
+      required: ['theme_name', 'theme_config'],
+    },
+  },
+
+  {
+    name: 'ha_update_theme',
+    description: '[WRITE] Update an existing theme in Home Assistant. MODIFIES configuration - requires approval. After update, call ha_reload_themes or restart HA.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        theme_name: {
+          type: 'string',
+          description: 'Theme name (without .yaml extension, e.g., "nice_dark")',
+        },
+        theme_config: {
+          type: 'object',
+          description: 'Theme configuration object with CSS variables (e.g., {"primary-color": "#ffb74d", "accent-color": "#ffb74d", ...})',
+        },
+      },
+      required: ['theme_name', 'theme_config'],
+    },
+  },
+
+  {
+    name: 'ha_delete_theme',
+    description: '[WRITE] Delete a theme from Home Assistant. DESTRUCTIVE - requires approval! After deletion, call ha_reload_themes or restart HA.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        theme_name: {
+          type: 'string',
+          description: 'Theme name (without .yaml extension, e.g., "nice_dark")',
+        },
+      },
+      required: ['theme_name'],
+    },
+  },
+
+  {
+    name: 'ha_reload_themes',
+    description: '[WRITE] Reload themes in Home Assistant. MODIFIES system state - requires approval. Calls frontend.reload_themes service.',
+    inputSchema: {
+      type: 'object',
+      properties: {},
+    },
+  },
+
+  {
+    name: 'ha_check_theme_config',
+    description: '[READ-ONLY] Check if themes are configured in configuration.yaml. Safe operation - only reads data.',
+    inputSchema: {
+      type: 'object',
+      properties: {},
+    },
+  },
 ];
 
 
