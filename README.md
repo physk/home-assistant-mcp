@@ -25,7 +25,8 @@ Built on [Model Context Protocol](https://modelcontextprotocol.io/) and powered 
 - 🤖 **Natural language** - describe what you want, AI builds it
 - 🎯 **Device-aware** - analyzes YOUR actual setup
 - 📦 **HACS integration** - install and manage 1000+ custom integrations via WebSocket
-- 💾 **Auto-backup** - every change saved in Git automatically
+- 💾 **Auto-backup** - every change saved in Git automatically with meaningful commit messages
+- 📝 **Meaningful commits** - AI automatically generates descriptive commit messages explaining what and why changed
 - ⏪ **Instant rollback** - restore any previous version with one command
 - 🔄 **Component management** - automations, scripts, helpers, entities
 - 📊 **Log analysis** - monitor system behavior, detect anomalies, suggest optimizations
@@ -364,7 +365,13 @@ turn on TV and soundbar. Create scenes and automations.
 
 ### 💾 Git Versioning & Rollback
 
-**Every change is automatically backed up in Git!** You can view history and rollback anytime.
+**Every change is automatically backed up in Git with meaningful commit messages!** You can view history and rollback anytime.
+
+**Meaningful Commit Messages:**
+- AI automatically generates descriptive commit messages based on what you're doing
+- Messages explain **what** changed and **why** (e.g., "Add automation: Control lights when motion detected")
+- You can provide additional context via `description` parameter for even more clarity
+- See [COMMIT_MESSAGES.md](./COMMIT_MESSAGES.md) for examples and best practices
 
 ```
 Show me the last 10 changes to my configuration

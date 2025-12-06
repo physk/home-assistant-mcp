@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.2.7] - 2025-12-06
+
+### ✨ Feature: Meaningful Git Commit Messages
+
+**AI-powered automatic generation of descriptive commit messages**
+
+- ✅ **Automatic commit message generation**: MCP server now automatically generates meaningful commit messages based on operation context
+- ✅ **User-provided descriptions**: All write operations now accept optional `description` parameter for even more clarity
+- ✅ **Context-aware messages**: Commit messages explain **what** changed and **why** (e.g., "Add automation: Control lights when motion detected")
+- ✅ **Easy change tracking**: You can ask AI to show recent changes and quickly find what you need using meaningful descriptions
+
+**Updated tools:**
+- `ha_write_file` - Now accepts optional `description` parameter
+- `ha_create_helper` - Now accepts optional `description` parameter
+- `ha_create_automation` - Now accepts optional `description` parameter
+- `ha_create_script` - Now accepts optional `description` parameter
+- `ha_create_theme` / `ha_update_theme` - Now accepts optional `description` parameter
+- `ha_apply_dashboard` - Now accepts optional `description` parameter
+
+**Examples:**
+- When creating an automation, provide: `"description": "Control living room lights when motion detected after sunset"`
+- Result commit message: `"Add automation: Control living room lights when motion detected after sunset"`
+- If no description provided, MCP automatically generates meaningful message based on operation context
+
+**Requires:** HA Vibecode Agent v2.10.2+
+
 ## [3.2.2] - 2025-11-18
 
 ### 🔧 IMPROVED: Helper Deletion

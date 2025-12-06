@@ -18,7 +18,7 @@ export const tools: Tool[] = [
   },
   {
     name: 'ha_write_file',
-    description: '[WRITE] Write content to a file in Home Assistant. MODIFIES configuration - requires approval.',
+    description: '[WRITE] Write content to a file in Home Assistant. MODIFIES configuration - requires approval. Provide a meaningful description of what and why you are changing (e.g., "Add motion sensor automation", "Fix temperature threshold", "Update dashboard layout").',
     inputSchema: {
       type: 'object',
       properties: {
@@ -29,6 +29,10 @@ export const tools: Tool[] = [
         content: {
           type: 'string',
           description: 'Content to write to the file',
+        },
+        description: {
+          type: 'string',
+          description: 'Optional: Human-readable description of what and why you are changing (e.g., "Add automation for motion sensor light control", "Fix temperature threshold in climate automation", "Update dashboard to show new sensors"). This will be used in Git commit message.',
         },
       },
       required: ['path', 'content'],
@@ -120,7 +124,7 @@ export const tools: Tool[] = [
   },
   {
     name: 'ha_create_helper',
-    description: '[WRITE] Create a Home Assistant helper via YAML configuration. MODIFIES configuration - requires approval. Helper will be created in YAML file and reloaded automatically.',
+    description: '[WRITE] Create a Home Assistant helper via YAML configuration. MODIFIES configuration - requires approval. Helper will be created in YAML file and reloaded automatically. Provide a meaningful description of what the helper is for (e.g., "Enable/disable climate system", "Set target temperature").',
     inputSchema: {
       type: 'object',
       properties: {
@@ -132,6 +136,10 @@ export const tools: Tool[] = [
         config: {
           type: 'object',
           description: 'Helper configuration (must include "name" field)',
+        },
+        description: {
+          type: 'string',
+          description: 'Optional: Human-readable description of what the helper is for and why (e.g., "Enable/disable climate system control", "Set target temperature for living room"). This will be used in Git commit message.',
         },
       },
       required: ['type', 'config'],
@@ -155,13 +163,17 @@ export const tools: Tool[] = [
   // Automation Operations
   {
     name: 'ha_create_automation',
-    description: '[WRITE] Create new automation in Home Assistant. MODIFIES configuration - requires approval.',
+    description: '[WRITE] Create new automation in Home Assistant. MODIFIES configuration - requires approval. Provide a meaningful description of what the automation does (e.g., "Control lights based on motion", "Adjust temperature based on schedule").',
     inputSchema: {
       type: 'object',
       properties: {
         config: {
           type: 'object',
           description: 'Automation configuration (id, alias, trigger, condition, action)',
+        },
+        description: {
+          type: 'string',
+          description: 'Optional: Human-readable description of what the automation does and why (e.g., "Control living room lights when motion detected", "Adjust bedroom temperature based on schedule", "Turn off all lights when leaving home"). This will be used in Git commit message.',
         },
       },
       required: ['config'],
@@ -193,13 +205,17 @@ export const tools: Tool[] = [
   // Script Operations
   {
     name: 'ha_create_script',
-    description: '[WRITE] Create new script in Home Assistant. MODIFIES configuration - requires approval.',
+    description: '[WRITE] Create new script in Home Assistant. MODIFIES configuration - requires approval. Provide a meaningful description of what the script does (e.g., "Start morning routine", "Control climate system").',
     inputSchema: {
       type: 'object',
       properties: {
         config: {
           type: 'object',
           description: 'Script configuration object',
+        },
+        description: {
+          type: 'string',
+          description: 'Optional: Human-readable description of what the script does and why (e.g., "Start morning routine: turn on lights and adjust temperature", "Control climate system startup sequence"). This will be used in Git commit message.',
         },
       },
       required: ['config'],
@@ -717,7 +733,7 @@ export const tools: Tool[] = [
   },
   {
     name: 'ha_apply_dashboard',
-    description: '[WRITE] Apply generated dashboard configuration to Home Assistant. Creates file, auto-registers in configuration.yaml, and restarts HA. Creates automatic Git backup. MODIFIES configuration - requires approval!',
+    description: '[WRITE] Apply generated dashboard configuration to Home Assistant. Creates file, auto-registers in configuration.yaml, and restarts HA. Creates automatic Git backup. MODIFIES configuration - requires approval! Provide a meaningful description of what the dashboard shows (e.g., "Main dashboard with climate and lights", "Overview of all sensors").',
     inputSchema: {
       type: 'object',
       properties: {
@@ -736,6 +752,10 @@ export const tools: Tool[] = [
         register_dashboard: {
           type: 'boolean',
           description: 'Auto-register dashboard in configuration.yaml (default: true)',
+        },
+        description: {
+          type: 'string',
+          description: 'Optional: Human-readable description of what the dashboard shows and why (e.g., "Main dashboard with climate controls and lights", "Overview dashboard showing all sensors and devices"). This will be used in Git commit message.',
         },
       },
       required: ['dashboard_config'],
@@ -821,7 +841,7 @@ export const tools: Tool[] = [
 
   {
     name: 'ha_create_theme',
-    description: '[WRITE] Create a new theme in Home Assistant. MODIFIES configuration - requires approval. After creation, call ha_reload_themes or restart HA.',
+    description: '[WRITE] Create a new theme in Home Assistant. MODIFIES configuration - requires approval. After creation, call ha_reload_themes or restart HA. Provide a meaningful description of the theme (e.g., "Dark theme with blue accents", "Light theme for daytime use").',
     inputSchema: {
       type: 'object',
       properties: {
@@ -832,6 +852,10 @@ export const tools: Tool[] = [
         theme_config: {
           type: 'object',
           description: 'Theme configuration object with CSS variables (e.g., {"primary-color": "#ffb74d", "accent-color": "#ffb74d", ...})',
+        },
+        description: {
+          type: 'string',
+          description: 'Optional: Human-readable description of the theme and why it was created (e.g., "Dark theme with blue accents for better visibility", "Light theme optimized for daytime use"). This will be used in Git commit message.',
         },
       },
       required: ['theme_name', 'theme_config'],
@@ -840,7 +864,7 @@ export const tools: Tool[] = [
 
   {
     name: 'ha_update_theme',
-    description: '[WRITE] Update an existing theme in Home Assistant. MODIFIES configuration - requires approval. After update, call ha_reload_themes or restart HA.',
+    description: '[WRITE] Update an existing theme in Home Assistant. MODIFIES configuration - requires approval. After update, call ha_reload_themes or restart HA. Provide a meaningful description of what changed (e.g., "Change primary color to blue", "Adjust contrast for better readability").',
     inputSchema: {
       type: 'object',
       properties: {
@@ -851,6 +875,10 @@ export const tools: Tool[] = [
         theme_config: {
           type: 'object',
           description: 'Theme configuration object with CSS variables (e.g., {"primary-color": "#ffb74d", "accent-color": "#ffb74d", ...})',
+        },
+        description: {
+          type: 'string',
+          description: 'Optional: Human-readable description of what changed and why (e.g., "Change primary color to blue for better visibility", "Adjust contrast for better readability in dark mode"). This will be used in Git commit message.',
         },
       },
       required: ['theme_name', 'theme_config'],

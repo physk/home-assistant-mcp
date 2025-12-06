@@ -35,6 +35,116 @@ const successResponse = (message: string) => ({
 });
 
 /**
+ * Generate meaningful commit message based on operation context
+ * Uses user-provided description if available, otherwise generates from context
+ */
+function generateCommitMessage(operation: string, args: any): string {
+  // If user provided a description, use it (most meaningful)
+  if (args.description && args.description.trim()) {
+    // Add operation context to make it clearer
+    switch (operation) {
+      case 'write_file':
+        const path = args.path || '';
+        const fileName = path.split('/').pop() || path;
+        if (fileName.includes('automation')) {
+          return `Automations: ${args.description}`;
+        } else if (fileName.includes('script')) {
+          return `Scripts: ${args.description}`;
+        } else if (fileName.includes('configuration')) {
+          return `Configuration: ${args.description}`;
+        } else if (fileName.includes('theme')) {
+          return `Theme: ${args.description}`;
+        } else if (fileName.includes('dashboard') || fileName.includes('lovelace')) {
+          return `Dashboard: ${args.description}`;
+        }
+        return args.description;
+      
+      case 'create_helper':
+        return `Add helper: ${args.description}`;
+      
+      case 'create_automation':
+        return `Add automation: ${args.description}`;
+      
+      case 'create_script':
+        return `Add script: ${args.description}`;
+      
+      case 'update_theme':
+        return `Update theme: ${args.description}`;
+      
+      case 'create_theme':
+        return `Create theme: ${args.description}`;
+      
+      case 'apply_dashboard':
+        return `Update dashboard: ${args.description}`;
+      
+      default:
+        return args.description;
+    }
+  }
+
+  // Fallback to auto-generated messages if no description provided
+  switch (operation) {
+    case 'write_file':
+      const path = args.path || '';
+      const fileName = path.split('/').pop() || path;
+      // Detect file type and generate appropriate message
+      if (fileName.includes('automation')) {
+        return `Update automations: modify ${fileName}`;
+      } else if (fileName.includes('script')) {
+        return `Update scripts: modify ${fileName}`;
+      } else if (fileName.includes('configuration')) {
+        return `Update configuration: modify ${fileName}`;
+      } else if (fileName.includes('theme')) {
+        return `Update theme: modify ${fileName}`;
+      } else if (fileName.includes('dashboard') || fileName.includes('lovelace')) {
+        return `Update dashboard: modify ${fileName}`;
+      }
+      return `Update file: ${fileName}`;
+
+    case 'create_helper':
+      const helperType = args.type || 'helper';
+      const helperName = args.config?.name || args.config?.entity_id || 'helper';
+      return `Add helper: ${helperType} - ${helperName}`;
+
+    case 'delete_helper':
+      return `Remove helper: ${args.entity_id}`;
+
+    case 'create_automation':
+      const automationAlias = args.config?.alias || args.config?.id || 'automation';
+      return `Add automation: ${automationAlias}`;
+
+    case 'delete_automation':
+      return `Remove automation: ${args.automation_id}`;
+
+    case 'create_script':
+      const scriptAlias = args.config?.alias || Object.keys(args.config || {})[0] || 'script';
+      return `Add script: ${scriptAlias}`;
+
+    case 'delete_script':
+      return `Remove script: ${args.script_id}`;
+
+    case 'create_theme':
+      return `Create theme: ${args.theme_name}`;
+
+    case 'update_theme':
+      return `Update theme: ${args.theme_name}`;
+
+    case 'delete_theme':
+      return `Remove theme: ${args.theme_name}`;
+
+    case 'apply_dashboard':
+      const dashboardName = args.filename || 'dashboard';
+      return `Update dashboard: ${dashboardName}`;
+
+    case 'delete_dashboard':
+      return `Remove dashboard: ${args.filename}`;
+
+    default:
+      return `Update configuration: ${operation}`;
+  }
+}
+
+/**
  * Tool Handlers Registry
  * 
  * Each handler is a function that takes (client, args) and returns a response
@@ -47,7 +157,8 @@ export const toolHandlers: Record<string, ToolHandler> = {
   },
 
   'ha_write_file': async (client, args) => {
-    await client.writeFile(args.path, args.content);
+    const commitMessage = generateCommitMessage('write_file', args);
+    await client.writeFile(args.path, args.content, commitMessage);
     return successResponse(`File written successfully: ${args.path}`);
   },
 
@@ -83,17 +194,20 @@ export const toolHandlers: Record<string, ToolHandler> = {
     return jsonResponse(result);
   },
   'ha_create_helper': async (client, args) => {
-    const result = await client.createHelper(args.type, args.config);
+    const commitMessage = generateCommitMessage('create_helper', args);
+    const result = await client.createHelper(args.type, args.config, commitMessage);
     return jsonResponse(result);
   },
   'ha_delete_helper': async (client, args) => {
-    const result = await client.deleteHelper(args.entity_id);
+    const commitMessage = generateCommitMessage('delete_helper', args);
+    const result = await client.deleteHelper(args.entity_id, commitMessage);
     return jsonResponse(result);
   },
 
   // Automation Operations
   'ha_create_automation': async (client, args) => {
-    const result = await client.createAutomation(args.config);
+    const commitMessage = generateCommitMessage('create_automation', args);
+    const result = await client.createAutomation(args.config, commitMessage);
     return jsonResponse(result);
   },
 
@@ -103,13 +217,15 @@ export const toolHandlers: Record<string, ToolHandler> = {
   },
 
   'ha_delete_automation': async (client, args) => {
-    const result = await client.deleteAutomation(args.automation_id);
+    const commitMessage = generateCommitMessage('delete_automation', args);
+    const result = await client.deleteAutomation(args.automation_id, commitMessage);
     return jsonResponse(result);
   },
 
   // Script Operations
   'ha_create_script': async (client, args) => {
-    const result = await client.createScript(args.config);
+    const commitMessage = generateCommitMessage('create_script', args);
+    const result = await client.createScript(args.config, commitMessage);
     return jsonResponse(result);
   },
 
@@ -119,7 +235,8 @@ export const toolHandlers: Record<string, ToolHandler> = {
   },
 
   'ha_delete_script': async (client, args) => {
-    await client.deleteScript(args.script_id);
+    const commitMessage = generateCommitMessage('delete_script', args);
+    await client.deleteScript(args.script_id, commitMessage);
     return successResponse(`Script deleted: ${args.script_id}`);
   },
 
@@ -309,20 +426,24 @@ export const toolHandlers: Record<string, ToolHandler> = {
   },
 
   'ha_apply_dashboard': async (client, args) => {
+    const commitMessage = generateCommitMessage('apply_dashboard', args);
     const result = await client.applyDashboard(
       args.dashboard_config,
       args.create_backup,
       args.filename,
-      args.register_dashboard
+      args.register_dashboard,
+      commitMessage
     );
     return jsonResponse(result);
   },
 
   'ha_delete_dashboard': async (client, args) => {
+    const commitMessage = generateCommitMessage('delete_dashboard', args);
     const result = await client.deleteDashboard(
       args.filename,
       args.remove_from_config,
-      args.create_backup
+      args.create_backup,
+      commitMessage
     );
     return jsonResponse(result);
   },
@@ -350,17 +471,20 @@ export const toolHandlers: Record<string, ToolHandler> = {
   },
 
   'ha_create_theme': async (client, args) => {
-    const result = await client.createTheme(args.theme_name, args.theme_config);
+    const commitMessage = generateCommitMessage('create_theme', args);
+    const result = await client.createTheme(args.theme_name, args.theme_config, commitMessage);
     return jsonResponse(result);
   },
 
   'ha_update_theme': async (client, args) => {
-    const result = await client.updateTheme(args.theme_name, args.theme_config);
+    const commitMessage = generateCommitMessage('update_theme', args);
+    const result = await client.updateTheme(args.theme_name, args.theme_config, commitMessage);
     return jsonResponse(result);
   },
 
   'ha_delete_theme': async (client, args) => {
-    const result = await client.deleteTheme(args.theme_name);
+    const commitMessage = generateCommitMessage('delete_theme', args);
+    const result = await client.deleteTheme(args.theme_name, commitMessage);
     return jsonResponse(result);
   },
 

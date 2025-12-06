@@ -44,10 +44,11 @@ export class HAClient {
     return response.data.content;
   }
 
-  async writeFile(path: string, content: string): Promise<void> {
+  async writeFile(path: string, content: string, commitMessage?: string): Promise<void> {
     await this.client.post(`/api/files/write`, {
       path,
       content,
+      commit_message: commitMessage,
     });
   }
 
@@ -86,10 +87,11 @@ export class HAClient {
   }
 
   // Helpers API
-  async createHelper(type: string, config: any): Promise<any> {
+  async createHelper(type: string, config: any, commitMessage?: string): Promise<any> {
     const response = await this.client.post(`/api/helpers/create`, {
       type,
       config,
+      commit_message: commitMessage,
     });
     return response.data;
   }
@@ -99,14 +101,19 @@ export class HAClient {
     return response.data;
   }
 
-  async deleteHelper(entityId: string): Promise<any> {
-    const response = await this.client.delete(`/api/helpers/delete/${entityId}`);
+  async deleteHelper(entityId: string, commitMessage?: string): Promise<any> {
+    const response = await this.client.delete(`/api/helpers/delete/${entityId}`, {
+      params: { commit_message: commitMessage },
+    });
     return response.data;
   }
 
   // Automations API
-  async createAutomation(config: any): Promise<any> {
-    const response = await this.client.post(`/api/automations/create`, config);
+  async createAutomation(config: any, commitMessage?: string): Promise<any> {
+    const response = await this.client.post(`/api/automations/create`, {
+      ...config,
+      commit_message: commitMessage,
+    });
     return response.data;
   }
 
@@ -115,14 +122,19 @@ export class HAClient {
     return response.data.automations;
   }
 
-  async deleteAutomation(automationId: string): Promise<any> {
-    const response = await this.client.delete(`/api/automations/delete/${automationId}`);
+  async deleteAutomation(automationId: string, commitMessage?: string): Promise<any> {
+    const response = await this.client.delete(`/api/automations/delete/${automationId}`, {
+      params: { commit_message: commitMessage },
+    });
     return response.data;
   }
 
   // Scripts API
-  async createScript(config: any): Promise<any> {
-    const response = await this.client.post(`/api/scripts/create`, config);
+  async createScript(config: any, commitMessage?: string): Promise<any> {
+    const response = await this.client.post(`/api/scripts/create`, {
+      ...config,
+      commit_message: commitMessage,
+    });
     return response.data;
   }
 
@@ -131,8 +143,10 @@ export class HAClient {
     return response.data.scripts;
   }
 
-  async deleteScript(scriptId: string): Promise<any> {
-    const response = await this.client.delete(`/api/scripts/delete/${scriptId}`);
+  async deleteScript(scriptId: string, commitMessage?: string): Promise<any> {
+    const response = await this.client.delete(`/api/scripts/delete/${scriptId}`, {
+      params: { commit_message: commitMessage },
+    });
     return response.data;
   }
 
@@ -329,21 +343,23 @@ export class HAClient {
     return response.data;
   }
 
-  async applyDashboard(dashboardConfig: any, createBackup: boolean = true, filename: string = 'ai-dashboard.yaml', registerDashboard: boolean = true): Promise<any> {
+  async applyDashboard(dashboardConfig: any, createBackup: boolean = true, filename: string = 'ai-dashboard.yaml', registerDashboard: boolean = true, commitMessage?: string): Promise<any> {
     const response = await this.client.post(`/api/lovelace/apply`, {
       dashboard_config: dashboardConfig,
       create_backup: createBackup,
       filename: filename,
-      register_dashboard: registerDashboard
+      register_dashboard: registerDashboard,
+      commit_message: commitMessage,
     });
     return response.data;
   }
 
-  async deleteDashboard(filename: string, removeFromConfig: boolean = true, createBackup: boolean = true): Promise<any> {
+  async deleteDashboard(filename: string, removeFromConfig: boolean = true, createBackup: boolean = true, commitMessage?: string): Promise<any> {
     const response = await this.client.delete(`/api/lovelace/delete/${filename}`, {
       params: {
         remove_from_config: removeFromConfig,
-        create_backup: createBackup
+        create_backup: createBackup,
+        commit_message: commitMessage,
       }
     });
     return response.data;
@@ -392,25 +408,27 @@ export class HAClient {
     return response.data;
   }
 
-  async createTheme(themeName: string, themeConfig: any): Promise<any> {
+  async createTheme(themeName: string, themeConfig: any, commitMessage?: string): Promise<any> {
     const response = await this.client.post(`/api/themes/create`, {
       theme_name: themeName,
       theme_config: themeConfig,
+      commit_message: commitMessage,
     });
     return response.data;
   }
 
-  async updateTheme(themeName: string, themeConfig: any): Promise<any> {
+  async updateTheme(themeName: string, themeConfig: any, commitMessage?: string): Promise<any> {
     const response = await this.client.put(`/api/themes/update`, {
       theme_name: themeName,
       theme_config: themeConfig,
+      commit_message: commitMessage,
     });
     return response.data;
   }
 
-  async deleteTheme(themeName: string): Promise<any> {
+  async deleteTheme(themeName: string, commitMessage?: string): Promise<any> {
     const response = await this.client.delete(`/api/themes/delete`, {
-      params: { theme_name: themeName },
+      params: { theme_name: themeName, commit_message: commitMessage },
     });
     return response.data;
   }
