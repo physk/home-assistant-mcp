@@ -13,7 +13,7 @@ No more manual YAML editing or searching through documentation!
 
 **Example:** *"Install smart climate control for my radiators"* → AI creates 10+ automations, helpers, sensors, and scripts optimized for YOUR TRVs.
 
-Built on [Model Context Protocol](https://modelcontextprotocol.io/) and powered by [HA Cursor Agent](https://github.com/Coolver/home-assistant-cursor-agent).
+Built on [Model Context Protocol](https://modelcontextprotocol.io/) and powered by [HA Vibecode Agent](https://github.com/Coolver/home-assistant-cursor-agent).
 
 [![NPM Version](https://img.shields.io/npm/v/@coolver/home-assistant-mcp)](https://www.npmjs.com/package/@coolver/home-assistant-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -104,8 +104,8 @@ Built on [Model Context Protocol](https://modelcontextprotocol.io/) and powered 
 Before installing, you need:
 
 1. **Home Assistant** running (any version)
-2. **[HA Cursor Agent](https://github.com/Coolver/home-assistant-cursor-agent)** v2.2.0+ installed as add-on
-3. **Agent Key** from HA Cursor Agent (auto-generated on first start)
+2. **[HA Vibecode Agent](https://github.com/Coolver/home-assistant-cursor-agent)** v2.2.0+ installed as add-on
+3. **Agent Key** from HA Vibecode Agent (auto-generated on first start)
 4. **AI-enabled editor** installed (Cursor AI or VS Code + GitHub Copilot)
 
 ---
@@ -121,21 +121,21 @@ The MCP server requires Node.js to run on your computer (where your AI editor is
 3. After installation, verify: `node --version` should show v18.0.0 or higher
 4. **Important:** Install Node.js on the computer where your AI editor runs, not on the Home Assistant server
 
-### Step 1: Install HA Cursor Agent
+### Step 1: Install HA Vibecode Agent
 
 Install the agent in your Home Assistant:
 
 1. Go to **Settings** → **Add-ons** → **Add-on Store**
 2. Click **⋮** → **Repositories**
 3. Add: `https://github.com/Coolver/home-assistant-cursor-agent`
-4. Install **HA Cursor Agent** (v2.0.0+)
+4. Install **HA Vibecode Agent** (v2.0.0+)
 5. **Start** the agent
 
 ### Step 2: Setup MCP in Your AI Editor
 
 **Get configuration from Home Assistant:**
 1. Open your **Home Assistant** (usually http://homeassistant.local:8123)
-2. Go to **Settings** → **Add-ons** → **HA Cursor Agent**
+2. Go to **Settings** → **Add-ons** → **HA Vibecode Agent**
 3. Click **"Open Web UI"** button
 
 You'll see this interface with tabs for Cursor and VS Code + Copilot. Нажми на вкладку для Cursor или VS Code в зависимости от IDE в котором вы хотите работать с вашим Home Assistant и следуйте инструкциям, вам понадобится установить и настроить Cursor или VS Code чтобы они через MCP протокол могли взаимодействовать с агентом, который вы установили на борте Home Assistant.
@@ -152,7 +152,7 @@ Open your AI editor (Cursor or VS Code) and send this message to AI:
 ```
 Connect to my Home Assistant and show me:
 1. List of all my climate entities
-2. Current status of the HA Cursor Agent
+2. Current status of the HA Vibecode Agent
 
 This will verify the MCP connection is working.
 ```
@@ -160,7 +160,7 @@ This will verify the MCP connection is working.
 If AI successfully returns your entities and agent status, you're all set! ✅
 
 **Troubleshooting:** If connection fails:
-- Check that HA Cursor Agent is running
+- Check that HA Vibecode Agent is running
 - Ensure your AI editor was fully restarted
 - Verify configuration was pasted correctly
 
@@ -412,7 +412,7 @@ Show me what changed in commit abc123
 
 | Variable | Description | Required | Default |
 |----------|-------------|----------|---------|
-| `HA_AGENT_URL` | URL of HA Cursor Agent | Yes | `http://homeassistant.local:8099` |
+| `HA_AGENT_URL` | URL of HA Vibecode Agent | Yes | `http://homeassistant.local:8099` |
 | `HA_AGENT_KEY` | Agent Key for authentication | Yes | - |
 
 ### Custom Agent URL
@@ -492,13 +492,13 @@ The MCP server provides these tools to AI assistants:
 ### "Invalid Agent Key" error
 
 1. Check your Agent Key is correct in `mcp.json` (under `HA_AGENT_KEY`)
-2. Regenerate key if needed: Settings → Add-ons → HA Cursor Agent → Open Web UI
-3. Make sure HA Cursor Agent is running
+2. Regenerate key if needed: Settings → Add-ons → HA Vibecode Agent → Open Web UI
+3. Make sure HA Vibecode Agent is running
 4. Verify agent is accessible: `curl http://homeassistant.local:8099/api/health`
 
 ### "Connection refused"
 
-1. Check HA Cursor Agent is started in Home Assistant
+1. Check HA Vibecode Agent is started in Home Assistant
 2. Verify the URL in `HA_AGENT_URL`
 3. Make sure port 8099 is not blocked by firewall
 
@@ -527,7 +527,7 @@ This will display what's happening in the agent.
 
 ## 🔐 Security
 
-- ✅ All communication goes through HA Cursor Agent (port 8099)
+- ✅ All communication goes through HA Vibecode Agent (port 8099)
 - ✅ Agent Key authentication for MCP clients
 - ✅ Agent validates Agent Key for all requests
 - ✅ Agent uses internal SUPERVISOR_TOKEN for Home Assistant API operations
@@ -538,7 +538,7 @@ This will display what's happening in the agent.
 
 ## 🤝 Related Projects
 
-- **[HA Cursor Agent](https://github.com/Coolver/home-assistant-cursor-agent)** - Home Assistant add-on (required)
+- **[HA Vibecode Agent](https://github.com/Coolver/home-assistant-cursor-agent)** - Home Assistant add-on (required)
 - **[Model Context Protocol](https://modelcontextprotocol.io/)** - Protocol specification
 
 ---
@@ -596,7 +596,7 @@ node build/index.js
 ↓  
 **HA Client** (`ha-client.ts`) ← HTTP API Wrapper  
 ↓  
-**HA Cursor Agent** (REST API) ← Home Assistant Integration
+**HA Vibecode Agent** (REST API) ← Home Assistant Integration
 
 ---
 

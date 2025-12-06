@@ -80,15 +80,15 @@ async function main() {
   // Test connection on startup
   try {
     const health = await haClient.healthCheck();
-    console.error(`✅ Connected to HA Cursor Agent v${health.version}`);
+    console.error(`✅ Connected to HA Vibecode Agent v${health.version}`);
     console.error(`📁 Config path: ${health.config_path}`);
     console.error(`🔄 Git enabled: ${health.git_enabled}`);
   } catch (error: any) {
-    console.error('❌ Failed to connect to HA Cursor Agent');
+    console.error('❌ Failed to connect to HA Vibecode Agent');
     console.error(`URL: ${HA_AGENT_URL}`);
     console.error(`Error: ${error.message}`);
     console.error('\nPlease ensure:');
-    console.error('1. HA Cursor Agent add-on is running');
+    console.error('1. HA Vibecode Agent add-on is running');
     console.error('2. HA_AGENT_URL is correct');
     console.error('3. HA_AGENT_KEY is valid');
     process.exit(1);
