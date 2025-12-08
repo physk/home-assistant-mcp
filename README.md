@@ -113,7 +113,7 @@ Your AI IDE gets exactly the actions and data it needs — through a stable API 
 Before installing, you need:
 
 1. **Home Assistant** running (any version)
-2. **[HA Vibecode Agent](https://github.com/Coolver/home-assistant-cursor-agent)** v2.2.0+ installed as add-on
+2. **[HA Vibecode Agent](https://github.com/Coolver/home-assistant-vibecode-agent)** v2.2.0+ installed as add-on
 3. **Agent Key** from HA Vibecode Agent (auto-generated on first start)
 4. **AI-enabled editor** installed (Cursor, VS Code + GitHub Copilot, Claude Code etc)
 
@@ -155,7 +155,7 @@ If you find this project useful and want to support its development, **please co
 
 **Verify everything works:**
 
-Open your AI editor (Cursor or VS Code) and send this message to AI:
+Open your AI editor (Cursor, VS Code, etc) and send this message to AI:
 ```
 Connect to my Home Assistant and show me:
 1. List of all my climate entities
