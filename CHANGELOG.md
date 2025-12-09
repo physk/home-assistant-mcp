@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.2.15] - 2025-12-09
+
+### 🔧 Improvements
+
+- **Better error handling**: Improved error message serialization for API errors
+- **Enhanced debugging**: More detailed error information when API calls fail
+- **Better error display**: Properly formats nested error objects from Home Assistant API
+
 ## [3.2.14] - 2025-12-06
 
 ### ✨ NEW: Entity/Area/Device Registry API Support
