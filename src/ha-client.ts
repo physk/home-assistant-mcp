@@ -112,6 +112,11 @@ export class HAClient {
     return response.data;
   }
 
+  async findDeadEntities(): Promise<any> {
+    const response = await this.client.get(`/api/registries/entities/dead`);
+    return response.data;
+  }
+
   // Area Registry API
   async getAreaRegistryList(): Promise<any[]> {
     const response = await this.client.get(`/api/registries/areas/list`);

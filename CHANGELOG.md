@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.2.16] - 2025-12-09
+
+### ✨ New Feature
+
+- **Dead Entities Detection**: Added `ha_find_dead_entities` MCP tool to automatically detect "dead" entities in Entity Registry
+  - Compares entities in registry (automation.* and script.*) with YAML configuration files
+  - Identifies entities that exist in registry but are missing from YAML files
+  - Returns detailed summary with counts and lists of dead automations and scripts
+  - Safe read-only operation - only analyzes, doesn't modify anything
+  - Helps keep Entity Registry clean by identifying orphaned entries
+
+**Why This Matters:**
+- After deleting automations/scripts from YAML, their entries may remain in Entity Registry
+- These "dead" entities clutter the UI and can cause confusion
+- Now you can quickly identify and clean them up
+
+**Usage:**
+- Call `ha_find_dead_entities` to get a report of all dead entities
+- Then use `ha_remove_entity_registry_entry` to clean them up
+
 ## [3.2.15] - 2025-12-09
 
 ### 🔧 Improvements

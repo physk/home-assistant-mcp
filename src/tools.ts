@@ -189,6 +189,14 @@ export const tools: Tool[] = [
       required: ['entity_id'],
     },
   },
+  {
+    name: 'ha_find_dead_entities',
+    description: '[READ-ONLY] Find "dead" entities in Entity Registry. Compares entities in registry (automation.* and script.*) with automations and scripts defined in YAML files to identify entities that exist in registry but are missing from YAML configuration. Safe operation - only reads data.',
+    inputSchema: {
+      type: 'object',
+      properties: {},
+    },
+  },
 
   // Area Registry Operations
   {

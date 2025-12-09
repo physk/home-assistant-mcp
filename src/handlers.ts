@@ -210,6 +210,11 @@ export const toolHandlers: Record<string, ToolHandler> = {
     return jsonResponse(result);
   },
 
+  'ha_find_dead_entities': async (client, args) => {
+    const result = await client.findDeadEntities();
+    return jsonResponse(result);
+  },
+
   // Area Registry Operations
   'ha_get_area_registry': async (client, args) => {
     const result = await client.getAreaRegistryList();
