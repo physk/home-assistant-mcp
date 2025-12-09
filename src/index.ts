@@ -67,7 +67,30 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     // Execute handler
     return await handler(haClient, args);
   } catch (error: any) {
-    const errorMessage = error.response?.data?.detail || error.message || 'Unknown error';
+    let errorMessage: string;
+    
+    // Handle axios errors
+    if (error.response?.data) {
+      const data = error.response.data;
+      if (typeof data.detail === 'string') {
+        errorMessage = data.detail;
+      } else if (typeof data.detail === 'object') {
+        errorMessage = JSON.stringify(data.detail, null, 2);
+      } else if (typeof data === 'string') {
+        errorMessage = data;
+      } else if (typeof data === 'object') {
+        errorMessage = JSON.stringify(data, null, 2);
+      } else {
+        errorMessage = String(data);
+      }
+    } else if (error.message) {
+      errorMessage = error.message;
+    } else if (typeof error === 'object') {
+      errorMessage = JSON.stringify(error, null, 2);
+    } else {
+      errorMessage = String(error || 'Unknown error');
+    }
+    
     return {
       content: [{ type: 'text', text: `Error: ${errorMessage}` }],
       isError: true,
