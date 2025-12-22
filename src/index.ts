@@ -15,6 +15,7 @@ const HA_AGENT_URL = process.env.HA_AGENT_URL || 'http://homeassistant.local:809
 const HA_AGENT_KEY = process.env.HA_AGENT_KEY;
 
 if (!HA_AGENT_KEY) {
+  // Always log errors - these are critical
   console.error('❌ Error: HA_AGENT_KEY environment variable is required');
   console.error('Please set it in Cursor: Settings → Tools & MCP → Add Custom MCP Server');
   console.error('Or manually in ~/.cursor/mcp.json');
@@ -103,11 +104,15 @@ async function main() {
   // Test connection on startup
   try {
     const health = await haClient.healthCheck();
-    // Use stderr for informational messages to avoid breaking JSON protocol on stdout
-    console.error(`✅ Connected to HA Vibecode Agent v${health.version}`);
-    console.error(`📁 Config path: ${health.config_path}`);
-    console.error(`🔄 Git versioning auto: ${health.git_versioning_auto}`);
+    // Only log connection info if DEBUG mode is enabled (to avoid cluttering logs)
+    // In production, connection is silent unless there's an error
+    if (process.env.DEBUG === 'true') {
+      console.error(`✅ Connected to HA Vibecode Agent v${health.version}`);
+      console.error(`📁 Config path: ${health.config_path}`);
+      console.error(`🔄 Git versioning auto: ${health.git_versioning_auto}`);
+    }
   } catch (error: any) {
+    // Always log errors - these are important
     console.error('❌ Failed to connect to HA Vibecode Agent');
     console.error(`URL: ${HA_AGENT_URL}`);
     console.error(`Error: ${error.message}`);
@@ -120,8 +125,10 @@ async function main() {
 
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  // Use stderr for informational messages to avoid breaking JSON protocol on stdout
-  console.error('🚀 MCP Home Assistant server running');
+  // Only log startup message if DEBUG mode is enabled
+  if (process.env.DEBUG === 'true') {
+    console.error('🚀 MCP Home Assistant server running');
+  }
 }
 
 main().catch((error) => {
