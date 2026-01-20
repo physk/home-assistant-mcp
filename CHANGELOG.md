@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.2.21] - 2026-01-20
+
+### ✨ Script listing & single-script fetch to save tokens
+
+**Context-efficient tools for working with large script sets**
+
+- ✅ **New lightweight listing tools**: Added support for listing script and automation IDs without loading full YAML content, so AI can cheaply discover what exists
+- ✅ **Single-entity fetch tools**: New tools allow fetching configuration for a single script or automation by ID, instead of pulling everything into context
+- ✅ **Reduced token usage**: Designed specifically to minimize context size and token consumption when working with large `scripts.yaml` / `automations.yaml`
+- ✅ **Better IDE workflows**: IDEs can now first list IDs, then open only the script/automation currently being edited, keeping conversations focused and efficient
+
 ## [3.2.20] - 2025-12-22
 
 ### 🐛 Bug Fix

@@ -209,9 +209,19 @@ export class HAClient {
     return response.data;
   }
 
-  async listAutomations(): Promise<any[]> {
-    const response = await this.client.get(`/api/automations/list`);
+  async listAutomations(idsOnly: boolean = false): Promise<any> {
+    const response = await this.client.get(`/api/automations/list`, {
+      params: { ids_only: idsOnly },
+    });
+    if (idsOnly) {
+      return response.data.automation_ids || [];
+    }
     return response.data.automations;
+  }
+
+  async getAutomation(automationId: string): Promise<any> {
+    const response = await this.client.get(`/api/automations/get/${automationId}`);
+    return response.data;
   }
 
   async deleteAutomation(automationId: string, commitMessage?: string): Promise<any> {
@@ -230,9 +240,19 @@ export class HAClient {
     return response.data;
   }
 
-  async listScripts(): Promise<any[]> {
-    const response = await this.client.get(`/api/scripts/list`);
+  async listScripts(idsOnly: boolean = false): Promise<any> {
+    const response = await this.client.get(`/api/scripts/list`, {
+      params: { ids_only: idsOnly },
+    });
+    if (idsOnly) {
+      return response.data.script_ids || [];
+    }
     return response.data.scripts;
+  }
+
+  async getScript(scriptId: string): Promise<any> {
+    const response = await this.client.get(`/api/scripts/get/${scriptId}`);
+    return response.data;
   }
 
   async deleteScript(scriptId: string, commitMessage?: string): Promise<any> {

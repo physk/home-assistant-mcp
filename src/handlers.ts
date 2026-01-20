@@ -287,7 +287,12 @@ export const toolHandlers: Record<string, ToolHandler> = {
   },
 
   'ha_list_automations': async (client, args) => {
-    const result = await client.listAutomations();
+    const result = await client.listAutomations(args.ids_only || false);
+    return jsonResponse(result);
+  },
+
+  'ha_get_automation': async (client, args) => {
+    const result = await client.getAutomation(args.automation_id);
     return jsonResponse(result);
   },
 
@@ -305,7 +310,12 @@ export const toolHandlers: Record<string, ToolHandler> = {
   },
 
   'ha_list_scripts': async (client, args) => {
-    const result = await client.listScripts();
+    const result = await client.listScripts(args.ids_only || false);
+    return jsonResponse(result);
+  },
+
+  'ha_get_script': async (client, args) => {
+    const result = await client.getScript(args.script_id);
     return jsonResponse(result);
   },
 

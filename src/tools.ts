@@ -359,8 +359,17 @@ export const tools: Tool[] = [
       properties: {
         type: {
           type: 'string',
-          enum: ['input_boolean', 'input_text', 'input_number', 'input_datetime', 'input_select'],
-          description: 'Helper type',
+          enum: [
+            'input_boolean',
+            'input_text',
+            'input_number',
+            'input_datetime',
+            'input_select',
+            // YAML-managed helper-like domains
+            'group',
+            'utility_meter',
+          ],
+          description: 'Helper type (YAML-managed helper or helper-like domain)',
         },
         config: {
           type: 'object',
@@ -409,11 +418,30 @@ export const tools: Tool[] = [
     },
   },
   {
-    name: 'ha_list_automations',
-    description: '[READ-ONLY] List all automations in Home Assistant. Safe operation - only reads data.',
+    name: 'ha_get_automation',
+    description: '[READ-ONLY] Get configuration for a single automation from automations.yaml by automation_id. Safe operation - only reads data.',
     inputSchema: {
       type: 'object',
-      properties: {},
+      properties: {
+        automation_id: {
+          type: 'string',
+          description: 'Automation ID to fetch (e.g., "my_automation")',
+        },
+      },
+      required: ['automation_id'],
+    },
+  },
+  {
+    name: 'ha_list_automations',
+    description: '[READ-ONLY] List all automations in Home Assistant. Safe operation - only reads data. Use ids_only=true to get only automation IDs without full configurations (useful when you need to check if automation exists or get list of IDs before fetching specific automation).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        ids_only: {
+          type: 'boolean',
+          description: 'If true, return only list of automation IDs. If false (default), return full automation configurations.',
+        },
+      },
     },
   },
   {
@@ -451,11 +479,30 @@ export const tools: Tool[] = [
     },
   },
   {
-    name: 'ha_list_scripts',
-    description: '[READ-ONLY] List all scripts in Home Assistant. Safe operation - only reads data.',
+    name: 'ha_get_script',
+    description: '[READ-ONLY] Get configuration for a single script from scripts.yaml by script_id. Safe operation - only reads data.',
     inputSchema: {
       type: 'object',
-      properties: {},
+      properties: {
+        script_id: {
+          type: 'string',
+          description: 'Script ID to fetch (e.g., "my_script")',
+        },
+      },
+      required: ['script_id'],
+    },
+  },
+  {
+    name: 'ha_list_scripts',
+    description: '[READ-ONLY] List all scripts in Home Assistant. Safe operation - only reads data. Use ids_only=true to get only script IDs without full configurations (useful when you need to check if script exists or get list of IDs before fetching specific script).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        ids_only: {
+          type: 'boolean',
+          description: 'If true, return only list of script IDs. If false (default), return full script configurations.',
+        },
+      },
     },
   },
   {
