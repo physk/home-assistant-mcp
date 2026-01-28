@@ -32,7 +32,9 @@ export class HAClient {
         'Content-Type': 'application/json',
         'X-MCP-Client-Version': MCP_VERSION,
       },
-      timeout: 30000,
+      // Default timeout for all API calls (overridable per-request)
+      // Increased to 90s to better support heavy operations like list_automations
+      timeout: 90000,
     });
   }
 

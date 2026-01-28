@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.2.25] - 2026-01-28
+
+### 🔧 Timeout tuning for heavy operations
+
+- ✅ **Increased default HTTP timeout** in MCP HA client from 30 seconds to 90 seconds
+  - Helps prevent timeouts for heavier operations like `ha_list_automations` on large/old Home Assistant instances
+  - Per-request overrides (e.g. for add-on install/update with 10-minute timeouts) continue to work as before
+  - Pairs with server-side optimizations in HA Vibecode Agent 2.10.35 for automation listing performance
+
 ## [3.2.24] - 2026-01-27
 
 ### ✨ Update endpoints for automations and scripts
