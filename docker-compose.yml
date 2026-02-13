@@ -1,0 +1,11 @@
+name: home-assistant-mcp
+
+services:
+  mcp:
+    image: ghcr.io/coolver/home-assistant-mcp:latest
+    restart: unless-stopped
+    environment:
+      HA_AGENT_URL: ${HA_AGENT_URL:-http://homeassistant.local:8099}
+      HA_AGENT_KEY: ${HA_AGENT_KEY:?HA_AGENT_KEY is required}
+    stdin_open: true
+    tty: true

@@ -210,6 +210,55 @@ If your agent runs on a different URL:
 
 ---
 
+## 🐳 Docker
+
+### Run with Docker
+
+Pull and run from GHCR:
+
+```bash
+docker run --rm -i \
+  -e HA_AGENT_URL="http://homeassistant.local:8099" \
+  -e HA_AGENT_KEY="your_api_key_here" \
+  ghcr.io/coolver/home-assistant-mcp:latest
+```
+
+Build locally and run:
+
+```bash
+docker build -t home-assistant-mcp:local .
+
+docker run --rm -i \
+  -e HA_AGENT_URL="http://homeassistant.local:8099" \
+  -e HA_AGENT_KEY="your_api_key_here" \
+  home-assistant-mcp:local
+```
+
+### Run with Docker Compose
+
+1. Copy `.env.example` to `.env` and set your key:
+
+```env
+HA_AGENT_URL=http://homeassistant.local:8099
+HA_AGENT_KEY=your_api_key_here
+```
+
+2. Start the container:
+
+```bash
+docker compose up -d
+```
+
+3. Stop it:
+
+```bash
+docker compose down
+```
+
+`docker-compose.yml` is included in this repository.
+
+---
+
 ## 🐛 Troubleshooting
 
 ### "Invalid Agent Key" error
